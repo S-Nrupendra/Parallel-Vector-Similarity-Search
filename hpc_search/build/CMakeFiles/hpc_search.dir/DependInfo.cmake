@@ -1,0 +1,25 @@
+
+# Consider dependencies only in project.
+set(CMAKE_DEPENDS_IN_PROJECT_ONLY OFF)
+
+# The set of languages for which implicit dependencies are needed:
+set(CMAKE_DEPENDS_LANGUAGES
+  )
+
+# The set of dependency files which are needed:
+set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/mnt/c/Users/snrup/OneDrive/Desktop/Sem 6/HPC Project/hpc_search/src/io.cpp" "CMakeFiles/hpc_search.dir/src/io.cpp.o" "gcc" "CMakeFiles/hpc_search.dir/src/io.cpp.o.d"
+  "/mnt/c/Users/snrup/OneDrive/Desktop/Sem 6/HPC Project/hpc_search/src/main.cpp" "CMakeFiles/hpc_search.dir/src/main.cpp.o" "gcc" "CMakeFiles/hpc_search.dir/src/main.cpp.o.d"
+  "/mnt/c/Users/snrup/OneDrive/Desktop/Sem 6/HPC Project/hpc_search/src/search_sequential.cpp" "CMakeFiles/hpc_search.dir/src/search_sequential.cpp.o" "gcc" "CMakeFiles/hpc_search.dir/src/search_sequential.cpp.o.d"
+  )
+
+# Targets to which this target links which contain Fortran sources.
+set(CMAKE_Fortran_TARGET_LINKED_INFO_FILES
+  )
+
+# Targets to which this target links which contain Fortran sources.
+set(CMAKE_Fortran_TARGET_FORWARD_LINKED_INFO_FILES
+  )
+
+# Fortran module output directory.
+set(CMAKE_Fortran_TARGET_MODULE_DIR "")
