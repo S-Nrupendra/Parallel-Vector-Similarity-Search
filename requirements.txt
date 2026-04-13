@@ -1,0 +1,15 @@
+rdkit
+tqdm
+
+# Check g++ version (need 7+)
+g++ --version
+
+# Check OpenMP support
+echo '#include <omp.h>
+int main(){ return 0; }' | g++ -fopenmp -x c++ - && echo "OpenMP OK"
+
+# Check AVX2 support (your CPU must support it)
+grep -m1 avx2 /proc/cpuinfo && echo "AVX2 supported"
+
+# Check cmake
+cmake --version
