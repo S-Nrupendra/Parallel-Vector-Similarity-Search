@@ -1,1 +1,1 @@
-/usr/bin/c++  -O2 -mavx2 -mfma -fopenmp -O3 -DNDEBUG CMakeFiles/hpc_search.dir/src/main.cpp.o CMakeFiles/hpc_search.dir/src/io.cpp.o CMakeFiles/hpc_search.dir/src/search_sequential.cpp.o -o hpc_search  -lgomp 
+/usr/bin/c++  -O2 -mavx2 -mfma -fopenmp -O3 -DNDEBUG CMakeFiles/hpc_search.dir/src/main.cpp.o CMakeFiles/hpc_search.dir/src/io.cpp.o CMakeFiles/hpc_search.dir/src/search_sequential.cpp.o CMakeFiles/hpc_search.dir/src/search_openmp.cpp.o -o hpc_search  -lgomp 

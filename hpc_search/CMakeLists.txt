@@ -10,6 +10,7 @@ add_executable(hpc_search
     src/main.cpp
     src/io.cpp
     src/search_sequential.cpp
+    src/search_openmp.cpp
 )
 
 target_link_libraries(hpc_search gomp)

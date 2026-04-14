@@ -177,6 +177,30 @@ src/main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_search.dir/build.make CMakeFiles/hpc_search.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
+src/search_openmp.o: src/search_openmp.cpp.o
+.PHONY : src/search_openmp.o
+
+# target to build an object file
+src/search_openmp.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_search.dir/build.make CMakeFiles/hpc_search.dir/src/search_openmp.cpp.o
+.PHONY : src/search_openmp.cpp.o
+
+src/search_openmp.i: src/search_openmp.cpp.i
+.PHONY : src/search_openmp.i
+
+# target to preprocess a source file
+src/search_openmp.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_search.dir/build.make CMakeFiles/hpc_search.dir/src/search_openmp.cpp.i
+.PHONY : src/search_openmp.cpp.i
+
+src/search_openmp.s: src/search_openmp.cpp.s
+.PHONY : src/search_openmp.s
+
+# target to generate assembly for a file
+src/search_openmp.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_search.dir/build.make CMakeFiles/hpc_search.dir/src/search_openmp.cpp.s
+.PHONY : src/search_openmp.cpp.s
+
 src/search_sequential.o: src/search_sequential.cpp.o
 .PHONY : src/search_sequential.o
 
@@ -216,6 +240,9 @@ help:
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"
+	@echo "... src/search_openmp.o"
+	@echo "... src/search_openmp.i"
+	@echo "... src/search_openmp.s"
 	@echo "... src/search_sequential.o"
 	@echo "... src/search_sequential.i"
 	@echo "... src/search_sequential.s"

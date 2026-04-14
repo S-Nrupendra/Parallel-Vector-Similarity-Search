@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/mnt/c/Users/snrup/OneDrive/Desktop/Sem 6/HPC Project/hpc_search/src/io.cpp" "CMakeFiles/hpc_search.dir/src/io.cpp.o" "gcc" "CMakeFiles/hpc_search.dir/src/io.cpp.o.d"
   "/mnt/c/Users/snrup/OneDrive/Desktop/Sem 6/HPC Project/hpc_search/src/main.cpp" "CMakeFiles/hpc_search.dir/src/main.cpp.o" "gcc" "CMakeFiles/hpc_search.dir/src/main.cpp.o.d"
+  "/mnt/c/Users/snrup/OneDrive/Desktop/Sem 6/HPC Project/hpc_search/src/search_openmp.cpp" "CMakeFiles/hpc_search.dir/src/search_openmp.cpp.o" "gcc" "CMakeFiles/hpc_search.dir/src/search_openmp.cpp.o.d"
   "/mnt/c/Users/snrup/OneDrive/Desktop/Sem 6/HPC Project/hpc_search/src/search_sequential.cpp" "CMakeFiles/hpc_search.dir/src/search_sequential.cpp.o" "gcc" "CMakeFiles/hpc_search.dir/src/search_sequential.cpp.o.d"
   )
 
