@@ -33,3 +33,4 @@ struct SearchResult {
 };
 
 std::vector<SearchResult> search_openmp(const FingerprintDB&, const Molecule&, int K);
+std::vector<SearchResult> search_simd(const FingerprintDB&, const Molecule&, int K);

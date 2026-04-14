@@ -55,21 +55,29 @@ int main(){
     std::cout<<"Time : " <<omp_ms<<" ms\n";
     print_results(results_omp);
 
-    // Verify both give same results
-    std::cout<<"\n=== Correctness Check ===\n";
-    bool correct = true;
-    for(int i = 0; i < K; i++){
-        if(results_seq[i].index != results_omp[i].index){
-            correct = false;
-            break;
-        }
+    // SIMD search
+    std::cout << "\n=== SIMD + OpenMP Search ===\n";
+    auto t3 = Clock::now();
+    auto results_simd = search_simd(db, query, K);
+    double simd_ms = elapsed_ms(t3);
+    std::cout << "Time: " << simd_ms << " ms\n";
+    print_results(results_simd);
+
+    // Correctness checks
+    std::cout << "\n=== Correctness Check ===\n";
+    bool omp_ok = true, simd_ok = true;
+    for (int i = 0; i < K; i++) {
+        if (results_seq[i].index != results_omp[i].index)  omp_ok  = false;
+        if (results_seq[i].index != results_simd[i].index) simd_ok = false;
     }
-    std::cout<<"Sequential vs OpenMP: "<<(correct ? "MATCH ✓" : "MISMATCH ✗")<<"\n";
+    std::cout << "Sequential vs OpenMP     : " << (omp_ok  ? "MATCH ✓" : "MISMATCH ✗") << "\n";
+    std::cout << "Sequential vs SIMD+OpenMP: " << (simd_ok ? "MATCH ✓" : "MISMATCH ✗") << "\n";
     
-     // Benchmark summary
-    std::cout<<"\n=== Benchmark Summary ===\n";
-    std::cout<<"Sequential : "<<seq_ms<<" ms  (1.00x)\n";
-    std::cout<<"OpenMP     : "<<omp_ms<<" ms  ("<<seq_ms/omp_ms<<"x)\n";
+    // Benchmark summary
+    std::cout << "\n=== Benchmark Summary ===\n";
+    std::cout << "Sequential    : " << seq_ms  << " ms  (1.00x)\n";
+    std::cout << "OpenMP        : " << omp_ms  << " ms  (" << seq_ms/omp_ms  << "x)\n";
+    std::cout << "SIMD + OpenMP : " << simd_ms << " ms  (" << seq_ms/simd_ms << "x)\n";
 
     return 0;
 }
