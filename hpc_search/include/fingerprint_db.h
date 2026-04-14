@@ -31,3 +31,5 @@ struct SearchResult {
     int   index;        // which molecule in the DB
     float similarity;   // tanimoto score (0 to 1)
 };
+
+std::vector<SearchResult> search_openmp(const FingerprintDB&, const Molecule&, int K);

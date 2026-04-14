@@ -20,6 +20,12 @@ double elapsed_ms(Clock::time_point start){
     return std::chrono::duration<double, std::milli>(Clock::now() - start).count();
 }
 
+void print_results(const std::vector<SearchResult>& results){
+    for(auto& r : results){
+        std::cout << "  mol[" << r.index << "] similarity = " << r.similarity << "\n";   
+    }
+}
+
 int main(){
     const std::string bin_path = "../data/chembl_fingerprints.bin";
     const int K = 5;
@@ -34,17 +40,36 @@ int main(){
     Molecule query = db.molecules[0];
 
     // Sequential search
-    std::cout<< "=== Sequential Search ===\n";
+    std::cout << "=== Sequential Search ===\n";
     auto t1 = Clock::now();
-    auto results = search_sequential(db, query, K);
+    auto results_seq = search_sequential(db, query, K);
     double seq_ms = elapsed_ms(t1);
-    std::cout<<"Time: "<<seq_ms<<" ms\n";
-    std::cout<<"Top-"<<K<<" results:\n";
-    for(auto& r : results)
-        std::cout<<" mol["<<r.index<<"] similarity = "<<r.similarity<<"\n";
+    std::cout << "Time: " << seq_ms << " ms\n";
+    print_results(results_seq);
+
+    // OpenMP search
+    std::cout<<"\n=== OpenMP Search ===\n";
+    auto t2 = Clock::now();
+    auto results_omp = search_openmp(db, query, K);
+    double omp_ms = elapsed_ms(t2);
+    std::cout<<"Time : " <<omp_ms<<" ms\n";
+    print_results(results_omp);
+
+    // Verify both give same results
+    std::cout<<"\n=== Correctness Check ===\n";
+    bool correct = true;
+    for(int i = 0; i < K; i++){
+        if(results_seq[i].index != results_omp[i].index){
+            correct = false;
+            break;
+        }
+    }
+    std::cout<<"Sequential vs OpenMP: "<<(correct ? "MATCH ✓" : "MISMATCH ✗")<<"\n";
     
+     // Benchmark summary
     std::cout<<"\n=== Benchmark Summary ===\n";
-    std::cout<<"Sequential : "<<seq_ms<<" ms (1.00x)\n";
+    std::cout<<"Sequential : "<<seq_ms<<" ms  (1.00x)\n";
+    std::cout<<"OpenMP     : "<<omp_ms<<" ms  ("<<seq_ms/omp_ms<<"x)\n";
 
     return 0;
 }
