@@ -225,6 +225,30 @@ src/search_sequential.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_search.dir/build.make CMakeFiles/hpc_search.dir/src/search_sequential.cpp.s
 .PHONY : src/search_sequential.cpp.s
 
+src/search_simd.o: src/search_simd.cpp.o
+.PHONY : src/search_simd.o
+
+# target to build an object file
+src/search_simd.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_search.dir/build.make CMakeFiles/hpc_search.dir/src/search_simd.cpp.o
+.PHONY : src/search_simd.cpp.o
+
+src/search_simd.i: src/search_simd.cpp.i
+.PHONY : src/search_simd.i
+
+# target to preprocess a source file
+src/search_simd.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_search.dir/build.make CMakeFiles/hpc_search.dir/src/search_simd.cpp.i
+.PHONY : src/search_simd.cpp.i
+
+src/search_simd.s: src/search_simd.cpp.s
+.PHONY : src/search_simd.s
+
+# target to generate assembly for a file
+src/search_simd.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_search.dir/build.make CMakeFiles/hpc_search.dir/src/search_simd.cpp.s
+.PHONY : src/search_simd.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -246,6 +270,9 @@ help:
 	@echo "... src/search_sequential.o"
 	@echo "... src/search_sequential.i"
 	@echo "... src/search_sequential.s"
+	@echo "... src/search_simd.o"
+	@echo "... src/search_simd.i"
+	@echo "... src/search_simd.s"
 .PHONY : help
 
 

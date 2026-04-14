@@ -6,5 +6,5 @@ CXX_DEFINES =
 
 CXX_INCLUDES = -I"/mnt/c/Users/snrup/OneDrive/Desktop/Sem 6/HPC Project/hpc_search/include"
 
-CXX_FLAGS =  -O2 -mavx2 -mfma -fopenmp -O3 -DNDEBUG -std=gnu++17
+CXX_FLAGS =  -O2 -mavx2 -mfma -fopenmp -mpopcnt -O3 -DNDEBUG -std=gnu++17
 

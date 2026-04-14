@@ -99,7 +99,10 @@ Code Structure :
         make -j4
         ./hpc_search
         `
+
 Output Observation :
+
+![OpenMP Results](<image 2.png>)
 Why 3.26x and not 8x?
 You might wonder — if OpenMP uses multiple cores, why not a perfect 8x speedup? This is explained by Amdahl's Law (which you studied in HPC theory):
 Reasons for less than perfect speedup:
@@ -109,3 +112,35 @@ Reasons for less than perfect speedup:
 4. Thread creation cost — Spawning and synchronizing threads has a fixed overhead every time you call search_openmp().
 In a real Linux machine you'd likely see 5-7x. 3.26x on WSL is completely reasonable and expected.
 
+Step 3: SIMD/AVX
+OpenMP made the loop parallel — more molecules processed simultaneously across cores.
+
+SIMD makes each individual tanimoto calculation faster —
+    Instead of processing one uint64 word at a time inside the tanimoto function,
+    AVX processes 4 uint64 words simultaneously in one CPU instruction.
+
+With AVX2 + POPCNT we process multiple words per iteration — fewer iterations, faster per molecule.
+
+```
+OpenMP  → parallel across molecules  (3.26x so far)
+SIMD    → faster per molecule        (expect additional 1.5x - 2x)
+Combined → expect ~5-6x total over sequential
+```
+
+How SIMD Works :
+Your CPU has Special Wide Registers
+Normal CPU register = 64 bits wide → holds 1 uint64
+AVX2 register = 256 bits wide → holds 4 uint64s at once
+Normal register:  [ uint64_0 ]                         ← 64 bits
+AVX2 register:    [ uint64_0 | uint64_1 | uint64_2 | uint64_3 ]  ← 256 bits
+So when you do AND or OR on an AVX2 register, you're doing it on 4 numbers simultaneously with one instruction.
+
+![alt text](<image 3.png>)
+Why Only 2.01x Instead of Expected 5-6x?
+Three reasons:
+1. The bottleneck is memory, not compute
+Reading 696MB of fingerprints from RAM is the slow part. Whether you compute tanimoto in 8 iterations or 32, you still have to wait for RAM to deliver the data. This is called memory bound behaviour — the CPU is faster than RAM can feed it.
+2. Compiler already optimized the sequential version
+With -O2 flag, the compiler is smart enough to auto-vectorize simple loops. So your "sequential" tanimoto was already partially using SIMD under the hood without you writing it explicitly. Your explicit AVX2 code doesn't add much on top of that.
+3. WSL overhead
+WSL adds overhead to everything — thread management, memory access patterns, CPU affinity. On a bare Linux machine with more cores you'd see better numbers.

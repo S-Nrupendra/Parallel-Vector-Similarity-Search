@@ -7,6 +7,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/hpc_search.dir/src/search_openmp.cpp.o.d"
   "CMakeFiles/hpc_search.dir/src/search_sequential.cpp.o"
   "CMakeFiles/hpc_search.dir/src/search_sequential.cpp.o.d"
+  "CMakeFiles/hpc_search.dir/src/search_simd.cpp.o"
+  "CMakeFiles/hpc_search.dir/src/search_simd.cpp.o.d"
   "hpc_search"
   "hpc_search.pdb"
 )
