@@ -129,12 +129,26 @@ hpc_search/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_search.dir/build.make CMakeFiles/hpc_search.dir/build
 .PHONY : hpc_search/fast
 
+#=============================================================================
+# Target rules for targets named hpc_kmeans
+
+# Build rule for target.
+hpc_kmeans: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 hpc_kmeans
+.PHONY : hpc_kmeans
+
+# fast build rule for target.
+hpc_kmeans/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_kmeans.dir/build.make CMakeFiles/hpc_kmeans.dir/build
+.PHONY : hpc_kmeans/fast
+
 src/io.o: src/io.cpp.o
 .PHONY : src/io.o
 
 # target to build an object file
 src/io.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_search.dir/build.make CMakeFiles/hpc_search.dir/src/io.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_kmeans.dir/build.make CMakeFiles/hpc_kmeans.dir/src/io.cpp.o
 .PHONY : src/io.cpp.o
 
 src/io.i: src/io.cpp.i
@@ -143,6 +157,7 @@ src/io.i: src/io.cpp.i
 # target to preprocess a source file
 src/io.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_search.dir/build.make CMakeFiles/hpc_search.dir/src/io.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_kmeans.dir/build.make CMakeFiles/hpc_kmeans.dir/src/io.cpp.i
 .PHONY : src/io.cpp.i
 
 src/io.s: src/io.cpp.s
@@ -151,7 +166,80 @@ src/io.s: src/io.cpp.s
 # target to generate assembly for a file
 src/io.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_search.dir/build.make CMakeFiles/hpc_search.dir/src/io.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_kmeans.dir/build.make CMakeFiles/hpc_kmeans.dir/src/io.cpp.s
 .PHONY : src/io.cpp.s
+
+src/kmeans_main.o: src/kmeans_main.cpp.o
+.PHONY : src/kmeans_main.o
+
+# target to build an object file
+src/kmeans_main.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_kmeans.dir/build.make CMakeFiles/hpc_kmeans.dir/src/kmeans_main.cpp.o
+.PHONY : src/kmeans_main.cpp.o
+
+src/kmeans_main.i: src/kmeans_main.cpp.i
+.PHONY : src/kmeans_main.i
+
+# target to preprocess a source file
+src/kmeans_main.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_kmeans.dir/build.make CMakeFiles/hpc_kmeans.dir/src/kmeans_main.cpp.i
+.PHONY : src/kmeans_main.cpp.i
+
+src/kmeans_main.s: src/kmeans_main.cpp.s
+.PHONY : src/kmeans_main.s
+
+# target to generate assembly for a file
+src/kmeans_main.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_kmeans.dir/build.make CMakeFiles/hpc_kmeans.dir/src/kmeans_main.cpp.s
+.PHONY : src/kmeans_main.cpp.s
+
+src/kmeans_openmp_simd.o: src/kmeans_openmp_simd.cpp.o
+.PHONY : src/kmeans_openmp_simd.o
+
+# target to build an object file
+src/kmeans_openmp_simd.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_kmeans.dir/build.make CMakeFiles/hpc_kmeans.dir/src/kmeans_openmp_simd.cpp.o
+.PHONY : src/kmeans_openmp_simd.cpp.o
+
+src/kmeans_openmp_simd.i: src/kmeans_openmp_simd.cpp.i
+.PHONY : src/kmeans_openmp_simd.i
+
+# target to preprocess a source file
+src/kmeans_openmp_simd.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_kmeans.dir/build.make CMakeFiles/hpc_kmeans.dir/src/kmeans_openmp_simd.cpp.i
+.PHONY : src/kmeans_openmp_simd.cpp.i
+
+src/kmeans_openmp_simd.s: src/kmeans_openmp_simd.cpp.s
+.PHONY : src/kmeans_openmp_simd.s
+
+# target to generate assembly for a file
+src/kmeans_openmp_simd.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_kmeans.dir/build.make CMakeFiles/hpc_kmeans.dir/src/kmeans_openmp_simd.cpp.s
+.PHONY : src/kmeans_openmp_simd.cpp.s
+
+src/kmeans_sequential.o: src/kmeans_sequential.cpp.o
+.PHONY : src/kmeans_sequential.o
+
+# target to build an object file
+src/kmeans_sequential.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_kmeans.dir/build.make CMakeFiles/hpc_kmeans.dir/src/kmeans_sequential.cpp.o
+.PHONY : src/kmeans_sequential.cpp.o
+
+src/kmeans_sequential.i: src/kmeans_sequential.cpp.i
+.PHONY : src/kmeans_sequential.i
+
+# target to preprocess a source file
+src/kmeans_sequential.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_kmeans.dir/build.make CMakeFiles/hpc_kmeans.dir/src/kmeans_sequential.cpp.i
+.PHONY : src/kmeans_sequential.cpp.i
+
+src/kmeans_sequential.s: src/kmeans_sequential.cpp.s
+.PHONY : src/kmeans_sequential.s
+
+# target to generate assembly for a file
+src/kmeans_sequential.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_kmeans.dir/build.make CMakeFiles/hpc_kmeans.dir/src/kmeans_sequential.cpp.s
+.PHONY : src/kmeans_sequential.cpp.s
 
 src/main.o: src/main.cpp.o
 .PHONY : src/main.o
@@ -257,10 +345,20 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... hpc_kmeans"
 	@echo "... hpc_search"
 	@echo "... src/io.o"
 	@echo "... src/io.i"
 	@echo "... src/io.s"
+	@echo "... src/kmeans_main.o"
+	@echo "... src/kmeans_main.i"
+	@echo "... src/kmeans_main.s"
+	@echo "... src/kmeans_openmp_simd.o"
+	@echo "... src/kmeans_openmp_simd.i"
+	@echo "... src/kmeans_openmp_simd.s"
+	@echo "... src/kmeans_sequential.o"
+	@echo "... src/kmeans_sequential.i"
+	@echo "... src/kmeans_sequential.s"
 	@echo "... src/main.o"
 	@echo "... src/main.i"
 	@echo "... src/main.s"

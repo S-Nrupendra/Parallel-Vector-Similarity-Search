@@ -1,0 +1,1 @@
+/usr/bin/c++  -O2 -mavx2 -mfma -fopenmp -mpopcnt -O3 -DNDEBUG CMakeFiles/hpc_kmeans.dir/src/kmeans_main.cpp.o CMakeFiles/hpc_kmeans.dir/src/io.cpp.o CMakeFiles/hpc_kmeans.dir/src/kmeans_sequential.cpp.o CMakeFiles/hpc_kmeans.dir/src/kmeans_openmp_simd.cpp.o -o hpc_kmeans  -lgomp 

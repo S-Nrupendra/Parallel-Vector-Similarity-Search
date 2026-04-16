@@ -64,6 +64,7 @@ CMAKE_BINARY_DIR = "/mnt/c/Users/snrup/OneDrive/Desktop/Sem 6/HPC Project/hpc_se
 
 # The main recursive "all" target.
 all: CMakeFiles/hpc_search.dir/all
+all: CMakeFiles/hpc_kmeans.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -72,6 +73,7 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/hpc_search.dir/clean
+clean: CMakeFiles/hpc_kmeans.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -81,7 +83,7 @@ clean: CMakeFiles/hpc_search.dir/clean
 CMakeFiles/hpc_search.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_search.dir/build.make CMakeFiles/hpc_search.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_search.dir/build.make CMakeFiles/hpc_search.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/mnt/c/Users/snrup/OneDrive/Desktop/Sem 6/HPC Project/hpc_search/build/CMakeFiles" --progress-num=1,2,3,4,5,6 "Built target hpc_search"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/mnt/c/Users/snrup/OneDrive/Desktop/Sem 6/HPC Project/hpc_search/build/CMakeFiles" --progress-num=6,7,8,9,10,11 "Built target hpc_search"
 .PHONY : CMakeFiles/hpc_search.dir/all
 
 # Build rule for subdir invocation for target.
@@ -99,6 +101,32 @@ hpc_search: CMakeFiles/hpc_search.dir/rule
 CMakeFiles/hpc_search.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_search.dir/build.make CMakeFiles/hpc_search.dir/clean
 .PHONY : CMakeFiles/hpc_search.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/hpc_kmeans.dir
+
+# All Build rule for target.
+CMakeFiles/hpc_kmeans.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_kmeans.dir/build.make CMakeFiles/hpc_kmeans.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_kmeans.dir/build.make CMakeFiles/hpc_kmeans.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/mnt/c/Users/snrup/OneDrive/Desktop/Sem 6/HPC Project/hpc_search/build/CMakeFiles" --progress-num=1,2,3,4,5 "Built target hpc_kmeans"
+.PHONY : CMakeFiles/hpc_kmeans.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/hpc_kmeans.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start "/mnt/c/Users/snrup/OneDrive/Desktop/Sem 6/HPC Project/hpc_search/build/CMakeFiles" 5
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/hpc_kmeans.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start "/mnt/c/Users/snrup/OneDrive/Desktop/Sem 6/HPC Project/hpc_search/build/CMakeFiles" 0
+.PHONY : CMakeFiles/hpc_kmeans.dir/rule
+
+# Convenience name for target.
+hpc_kmeans: CMakeFiles/hpc_kmeans.dir/rule
+.PHONY : hpc_kmeans
+
+# clean rule for target.
+CMakeFiles/hpc_kmeans.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/hpc_kmeans.dir/build.make CMakeFiles/hpc_kmeans.dir/clean
+.PHONY : CMakeFiles/hpc_kmeans.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

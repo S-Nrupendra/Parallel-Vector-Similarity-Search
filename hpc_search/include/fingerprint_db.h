@@ -26,11 +26,31 @@ struct FingerprintDB {
     int size() const { return (int)molecules.size(); }
 };
 
-// Top-K result
+// Top-K result // Search result for one molecule in the DB
 struct SearchResult {
     int   index;        // which molecule in the DB
     float similarity;   // tanimoto score (0 to 1)
 };
 
+// KMean centroid - same shape as a molecule
+struct Centroid{
+    uint64_t fp[FP_WORDS];
+};
+
+// KMean result
+struct KMeansResult{
+    std::vector<int> assignments; // assigments[i] = cluster id of molecule i
+    std::vector<Centroid> centroids; // final K centroids
+    int iterations; // how many iterations ran
+    double total_ms; // total time taken
+};
+
+FingerprintDB load_database(const std::string& path);
+
+std::vector<SearchResult> search_sequential(const FingerprintDB&, const Molecule&, int K);
 std::vector<SearchResult> search_openmp(const FingerprintDB&, const Molecule&, int K);
 std::vector<SearchResult> search_simd(const FingerprintDB&, const Molecule&, int K);
+
+// KMeans
+KMeansResult kmeans_sequential(const FingerprintDB&, int K, int max_iters);
+KMeansResult kmeans_openmp_simd(const FingerprintDB&, int K, int max_iters);
