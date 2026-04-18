@@ -1,5 +1,17 @@
-This project uses concepts of High performance computing (HPC) like OpenMp to find similar vectors in a dataset which has millions of vectors
-This has directly use in LLMs & RAGs
+Title : Parallel Vector Similarity Search Engine ("The GenAI Backend")
+
+Deatils about the Project :
+What we are building :
+A fast search engine for vectors. Given a database of millions of high-dimensional vectors (think: text embeddings, image features), you want to find the K most similar ones to a query vector. This is exactly what powers RAG in LLMs — when ChatGPT "looks up" relevant documents, this is happening under the hood.
+
+The core problem
+Brute-force search over 10 million vectors × 128 dimensions = ~1.28 billion float operations per query. That's too slow sequentially. So we parallelize it.
+
+Industry Relevance: Vector databases (like Pinecone or Milvus) are the backbone of modern AI, specifically for Retrieval-Augmented Generation (RAG) used by LLMs to "remember" documents.
+
+The Project: Build a system that loads a massive dataset of high-dimensional vectors (representing text or images) and quickly finds the 'K' most similar vectors to a user's query using Cosine Similarity or Euclidean distance.
+
+Where the HPC comes in: Searching a database of 10 million vectors sequentially takes forever. Using the concepts of HPC we parallelize this search.
 
 For this project we are using Chemistry Dataset instead of official datasets like SIFT1M ( http://corpus-texmex.irisa.fr/)
 
@@ -8,11 +20,13 @@ Local (WSL)  → Step 1: I/O & Architecture
              → Step 3: OpenMP
              → Step 4: SIMD/AVX
 
-Kaggle GPU   → Step 5: CUDA (later)
+Kaggle GPU   → Step 5: CUDA (Future Enhancement)
 
 Step 0 : Data Preprocessing
 * We are using a Chemistry Dataset (https://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/latest/)
 * Using the Python library `rdkit` we are able to obtain fingerprints for different molecules and `.bin` file
+* We are considering `chembl_id` (Unique ID for each molecule) and `canonical_smiles` (Text representation of the molecule's chemical structure)
+
 
 Step 1 : I/O Architecture
 1) We need to load the data into memory(the .bin file)
@@ -30,6 +44,8 @@ Step 1 : I/O Architecture
             * -mavx2 → enable AVX2 instructions (needed for SIMD later)
             * -fopenmp → enable OpenMP (needed for parallel later)
             * Compile the 3 files together into one program called `hpc_search`
+
+Tanimoto Calculation : `number_of_1bits(A & B) / number_of_1bits(A | B)`
 
 `
 # Go back to the right place
@@ -88,29 +104,27 @@ Then at the end, one thread merges all 8 local top-5 heaps into one final top-5:
 `8 local heaps (each size 5) → merge → 1 final heap (size 5)`
 This is safe because no two threads ever touch the same heap.
 
-Code Structure :
-    1) `src/search_openmp.cpp`
-    2) Updating `include/fingerprint_db.h`
-    3) Updating `src/main.cpp`
-    4) Updating `CMakeLists.txt`
-        `
-        cd "/mnt/c/Users/snrup/OneDrive/Desktop/Sem 6/HPC Project/hpc_search/build"
-        cmake .. -DCMAKE_BUILD_TYPE=Release
-        make -j4
-        ./hpc_search
-        `
+Full Flow :
+    1. Split 2.85M molecules across T threads
+    2. Each thread:
+        a. Creates its own local min-heap of size K
+        b. Loops through its chunk
+        c. Computes tanimoto for each molecule
+        d. Updates its local heap if score is high enough
+    3. Main thread merges all local heaps
+    4. Return final top-K
 
 Output Observation :
 
 ![OpenMP Results](<image 2.png>)
 Why 3.26x and not 8x?
-You might wonder — if OpenMP uses multiple cores, why not a perfect 8x speedup? This is explained by Amdahl's Law (which you studied in HPC theory):
+We might wonder — if OpenMP uses multiple cores, why not a perfect 8x speedup? This is explained by Amdahl's Law (which you studied in HPC theory):
 Reasons for less than perfect speedup:
-1. WSL overhead — You're running on Windows Subsystem for Linux. WSL doesn't give full native Linux performance. Thread management is slower than bare metal Linux.
+1. WSL overhead — We running on Windows Subsystem for Linux. WSL doesn't give full native Linux performance. Thread management is slower than bare metal Linux.
 2. Memory bandwidth bottleneck — All threads are reading from the same 696MB file in RAM simultaneously. RAM has limited bandwidth — all cores compete for it, so they end up waiting on memory, not computing.
 3. Merge overhead — After parallel search, one thread merges all local heaps. That part is sequential.
 4. Thread creation cost — Spawning and synchronizing threads has a fixed overhead every time you call search_openmp().
-In a real Linux machine you'd likely see 5-7x. 3.26x on WSL is completely reasonable and expected.
+In a real Linux machine we'd likely see 5-7x. 3.26x on WSL is completely reasonable and expected.
 
 Step 3: SIMD/AVX
 OpenMP made the loop parallel — more molecules processed simultaneously across cores.
@@ -128,7 +142,8 @@ Combined → expect ~5-6x total over sequential
 ```
 
 How SIMD Works :
-Your CPU has Special Wide Registers
+SIMD Stands for `Single Instruction, Multiple Data`
+The CPU has Special Wide Registers
 Normal CPU register = 64 bits wide → holds 1 uint64
 AVX2 register = 256 bits wide → holds 4 uint64s at once
 Normal register:  [ uint64_0 ]                         ← 64 bits
@@ -144,3 +159,11 @@ Reading 696MB of fingerprints from RAM is the slow part. Whether you compute tan
 With -O2 flag, the compiler is smart enough to auto-vectorize simple loops. So your "sequential" tanimoto was already partially using SIMD under the hood without you writing it explicitly. Your explicit AVX2 code doesn't add much on top of that.
 3. WSL overhead
 WSL adds overhead to everything — thread management, memory access patterns, CPU affinity. On a bare Linux machine with more cores you'd see better numbers.
+
+Final Result and Visualtzation :
+Using KMeans and taking 100 different Centriods and iterating for a maximum of 20 loops and stopping early if the centroid didn't changed which saves us compuation time
+![alt text](image.png)
+![alt text](kmeans_benchmark.png)
+
+Plotted evenly sampled 50,000 points using PCA converting higher dimensions into 2D for plotting
+![alt text](kmeans_clusters.png)

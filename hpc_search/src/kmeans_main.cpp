@@ -1,6 +1,15 @@
 #include "fingerprint_db.h"
 #include <iostream>
 #include <chrono>
+#include <fstream>
+
+void save_assignments(const KMeansResult& result, const std::string& path){
+    std::ofstream f(path);
+    f<<"molecule_index,cluster_id\n";
+    for(int i = 0;i < (int)result.assignments.size();i++)
+        f<<i<<","<<result.assignments[i]<<"\n";
+    std::cout<<"Assignments saved to "<<path<<"\n";
+}
 
 int main(){
     const std::string bin_path = "../data/chembl_fingerprints.bin";
@@ -29,6 +38,8 @@ int main(){
     std::cout<<"=== KMeans Benchmark Summary ===\n";
     std::cout<<"Sequential   : "<<seq_result.total_ms<<" ms  (1.00x)\n";
     std::cout<<"OpenMP+SIMD  : "<<omp_result.total_ms<<" ms  ("<<speedup<<"x)\n";
+
+    save_assignments(omp_result, "../data/assignments.csv");
 
     return 0;
 }
